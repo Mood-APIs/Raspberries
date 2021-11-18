@@ -59,7 +59,7 @@ def upload():
 
     now = datetime.now()
     datetime_str = now.strftime("%Y-%m-%d %H:%M:%S")
-    print('Start uploading -- ' + datetime_str + '\n')
+    print('Start uploading   -- ' + datetime_str + '\n')
 
     global access_token
     response = new_song(access_token)
@@ -77,7 +77,7 @@ def upload():
 
     now = datetime.now()
     datetime_str = now.strftime("%Y-%m-%d %H:%M:%S")
-    print('Stop uploading -- ' + datetime_str)
+    print('Stop uploading   -- ' + datetime_str)
 
 
 print(f'Running at ({os.getpid()})')
