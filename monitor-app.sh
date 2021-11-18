@@ -1,6 +1,6 @@
 APP_PID=$(ps aux | grep app.py | grep -v grep | awk '{print $2}')
 
-ALL_RECORDS_PIDS=$(ps aux | agrep record | grep -v grep | awk '{print $2}')
+ALL_RECORDS_PIDS=$(ps aux | grep arecord | grep -v grep | awk '{print $2}')
 RECORD_PID=$(echo $ALL_RECORDS_PIDS | awk '{print $2}')
 
 FFMPEG_PID=$(ps aux | grep ffmpeg | grep -v grep | awk '{print $2}')
