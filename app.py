@@ -6,7 +6,7 @@ import shlex
 import os
 
 bar_id = '84:d8:1b:8c:b3:fb'
-path_file = f'/home/{os.getlogin()}/final_song.wav'
+path_file = f'/home/{os.getlogin()}/final_song.mp3'
 log_path = f'/home/{os.getlogin()}/logs/out-' + datetime.now().strftime('%d-%m-%y') + '.log'
 
 # identity: rasp_pi
@@ -59,7 +59,7 @@ def upload():
 
     now = datetime.now()
     datetime_str = now.strftime("%Y-%m-%d %H:%M:%S")
-    print('Start uploading    -- ' + datetime_str + '\n')
+    print('Start uploading -- ' + datetime_str + '\n')
 
     global access_token
     response = new_song(access_token)
@@ -77,7 +77,7 @@ def upload():
 
     now = datetime.now()
     datetime_str = now.strftime("%Y-%m-%d %H:%M:%S")
-    print('Stop uploading    -- ' + datetime_str)
+    print('Stop uploading -- ' + datetime_str)
 
 
 print(f'Running at ({os.getpid()})')
