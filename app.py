@@ -7,7 +7,6 @@ import os
 
 bar_id = '84:d8:1b:8c:b3:fb'
 path_file = f'/home/{os.getlogin()}/final_song.mp3'
-log_path = f'/home/{os.getlogin()}/logs/out-' + datetime.now().strftime('%d-%m-%y') + '.log'
 
 # identity: rasp_pi
 access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzNTQ1Mjg3MywianRpIjoiMjQ3NmJlOTktNDQ2Yi00ZTBjLTk2NmQtNjBkOTBjODgzMWE4IiwibmJmIjoxNjM1NDUyODczLCJ0eXBlIjoiYWNjZXNzIiwic3ViIjoicmFzcF9waSIsImV4cCI6MTYzNTQ3NDQ3M30.U5i9eIlqziPgPGKJviLEvgBuloNIXR9iPWsPRIywaao'
