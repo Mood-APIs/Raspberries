@@ -5,7 +5,7 @@ import shlex
 
 import os
 
-bar_id = '84:d8:1b:8c:b3:fb'
+bar_id = os.getenv("BAR_BSSID")
 path_file = f'/home/{os.getlogin()}/final_song.mp3'
 
 # identity: rasp_pi
