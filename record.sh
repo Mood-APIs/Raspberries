@@ -12,7 +12,7 @@ sudo arecord -t wav -B $(expr $1 \* 1000 \* 60) -f S16_LE -c 2 -r 44100 -d $1 --
 # sudo arecord -f S16_LE -r 11025 -d $1 --device="hw:1,0" ~/temp_song.wav &&
 echo 'Stop recording    -- '$DATETIME >> $LOG_FILE &&
 echo 'Convert to mp3    -- '$DATETIME >> $LOG_FILE &&
-ffmpeg -i $TEMP_SONG_FILE -acodec mp3 $FINAL_SONG_FILE &&
+ffmpeg -i $TEMP_SONG_FILE -acodec mp3 -y $FINAL_SONG_FILE &&
 echo 'Converted to mp3  -- '$DATETIME >> $LOG_FILE
 
 # echo 'Start compressing  -- '$DATETIME >> $LOG_FILE &&
