@@ -106,6 +106,13 @@ while True:
 
     # Recording
     while start_time < now_time < end_time:
+
+        print('-----------------------------')
+        print(f'Now time: {str(now_time)}')
+        print(f'Start time: {str(start_time)}')
+        print(f'End time: {str(end_time)}')
+        print('-----------------------------')
+
         subprocess.call(shlex.split(f'/home/{os.getlogin()}/mood-scripts/record.sh ' + str(record_time)))
         upload()
         print('----------------------------------------------------------------')
