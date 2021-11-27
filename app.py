@@ -14,32 +14,34 @@ path_file = f'/home/{os.getlogin()}/final_song.mp3'
 access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzNTQ1Mjg3MywianRpIjoiMjQ3NmJlOTktNDQ2Yi00ZTBjLTk2NmQtNjBkOTBjODgzMWE4IiwibmJmIjoxNjM1NDUyODczLCJ0eXBlIjoiYWNjZXNzIiwic3ViIjoicmFzcF9waSIsImV4cCI6MTYzNTQ3NDQ3M30.U5i9eIlqziPgPGKJviLEvgBuloNIXR9iPWsPRIywaao'
 ref_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzNTQ1Mjg3MywianRpIjoiMmEwMTMyNzUtOGFmYy00NmQyLWIwNzctZTZiZjEwMGJkNzE4IiwibmJmIjoxNjM1NDUyODczLCJ0eXBlIjoicmVmcmVzaCIsInN1YiI6InJhc3BfcGkiLCJleHAiOjE3MzAwNjA4NzN9.f7JbSX_aCu87DNg2gzdrpAZJvABbrgLyea9XSjatVlc'
 
-global start_time, end_time, record_time, log_file, f
+global start_time, end_time, record_time, log_file
 
 def update_init_settings():
 
-    global log_file, f
+    global log_file
     date_now = datetime.now().strftime('%d-%m-%Y')
     log_file = f'/home/{os.getlogin()}/logs/out-{date_now}.log'
-    f = open(log_file, 'a')
-    # sys.stdout = open(log_file, 'wt')
+    with open(log_file, 'a') as file:
 
-    url = "https://r9rjketed6.execute-api.eu-south-1.amazonaws.com/dev/init"
-    payload = {}
-    files = {}
-    headers = {}
+        # sys.stdout = open(log_file, 'wt')
 
-    response = requests.request("GET", url, headers=headers, data=payload, files=files)
-    f.write(response.text)
+        url = "https://r9rjketed6.execute-api.eu-south-1.amazonaws.com/dev/init"
+        payload = {}
+        files = {}
+        headers = {}
 
-    global start_time, end_time, record_time
+        response = requests.request("GET", url, headers=headers, data=payload, files=files)
+        f.write(response.text)
 
-    settings = response.json()['settings']
-    basic_timeframe = settings['basic_timeframe']
-    start_time = datetime.strptime(basic_timeframe['start'], '%Y-%m-%d %H:%M:%S')
-    end_time = datetime.strptime(basic_timeframe['end'], '%Y-%m-%d %H:%M:%S')
-    record_time = settings['record_timeOffset']
+        global start_time, end_time, record_time
 
+        settings = response.json()['settings']
+        basic_timeframe = settings['basic_timeframe']
+        start_time = datetime.strptime(basic_timeframe['start'], '%Y-%m-%d %H:%M:%S')
+        end_time = datetime.strptime(basic_timeframe['end'], '%Y-%m-%d %H:%M:%S')
+        record_time = settings['record_timeOffset']
+
+        return file
 
 
 def new_song(token):
@@ -100,7 +102,7 @@ def upload():
 while True:
 
     # Set the correct path for th log file
-    update_init_settings()
+    f = update_init_settings()
 
     f.write(f'Running at ({os.getpid()})')
 
