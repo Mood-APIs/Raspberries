@@ -21,10 +21,7 @@ def update_init_settings():
     # global log_file
     date_now = datetime.now().strftime('%d-%m-%y')
     log_file = f'/home/{os.getlogin()}/logs/out-{date_now}.log'
-    if os.path.isfile(log_file):
-        sys.stdout = open(log_file, 'a')
-    else:
-        sys.stdout = open(log_file, 'w')
+    sys.stdout = open(log_file, 'a')
 
     url = "https://r9rjketed6.execute-api.eu-south-1.amazonaws.com/dev/init"
     payload = {}
