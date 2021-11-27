@@ -18,6 +18,11 @@ global start_time, end_time, record_time, log_file
 
 def update_init_settings():
 
+    global log_file
+    date_now = datetime.now().strftime('%d-%m-%Y')
+    log_file = f'/home/{os.getlogin()}/logs/out-{date_now}.log'
+    sys.stdout = open(log_file, 'wt')
+
     url = "https://r9rjketed6.execute-api.eu-south-1.amazonaws.com/dev/init"
     payload = {}
     files = {}
@@ -34,9 +39,7 @@ def update_init_settings():
     end_time = datetime.strptime(basic_timeframe['end'], '%Y-%m-%d %H:%M:%S')
     record_time = settings['record_timeOffset']
 
-    global log_file
-    date_now = datetime.now().strftime('%d-%m-%Y')
-    log_file = f'/home/{os.getlogin()}/logs/out-{date_now}'
+
 
 def new_song(token):
 
@@ -97,7 +100,6 @@ while True:
 
     # Set the correct path for th log file
     update_init_settings()
-    sys.stdout = open(log_file, 'wt')
 
     print(f'Running at ({os.getpid()})')
 
