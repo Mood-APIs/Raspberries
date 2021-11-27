@@ -5,6 +5,7 @@ import shlex
 import sched
 import time
 import os
+import sys
 
 bar_id = 'E2:63:DA:BA:56:81'
 path_file = f'/home/{os.getlogin()}/final_song.mp3'
@@ -13,7 +14,7 @@ path_file = f'/home/{os.getlogin()}/final_song.mp3'
 access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzNTQ1Mjg3MywianRpIjoiMjQ3NmJlOTktNDQ2Yi00ZTBjLTk2NmQtNjBkOTBjODgzMWE4IiwibmJmIjoxNjM1NDUyODczLCJ0eXBlIjoiYWNjZXNzIiwic3ViIjoicmFzcF9waSIsImV4cCI6MTYzNTQ3NDQ3M30.U5i9eIlqziPgPGKJviLEvgBuloNIXR9iPWsPRIywaao'
 ref_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzNTQ1Mjg3MywianRpIjoiMmEwMTMyNzUtOGFmYy00NmQyLWIwNzctZTZiZjEwMGJkNzE4IiwibmJmIjoxNjM1NDUyODczLCJ0eXBlIjoicmVmcmVzaCIsInN1YiI6InJhc3BfcGkiLCJleHAiOjE3MzAwNjA4NzN9.f7JbSX_aCu87DNg2gzdrpAZJvABbrgLyea9XSjatVlc'
 
-global start_time, end_time, record_time
+global start_time, end_time, record_time, log_file
 
 def update_init_settings():
 
@@ -32,6 +33,10 @@ def update_init_settings():
     start_time = datetime.strptime(basic_timeframe['start'], '%Y-%m-%d %H:%M:%S')
     end_time = datetime.strptime(basic_timeframe['end'], '%Y-%m-%d %H:%M:%S')
     record_time = settings['record_timeOffset']
+
+    global log_file
+    date_now = datetime.now().strftime('%d-%m-%Y')
+    log_file = f'/home/{os.getlogin()}/logs/out-{date_now}'
 
 def new_song(token):
 
@@ -90,12 +95,14 @@ def upload():
 
 while True:
 
+    # Set the correct path for th log file
+    update_init_settings()
+    sys.stdout = open(log_file, 'wt')
+
     print(f'Running at ({os.getpid()})')
 
-    update_init_settings()
-    now_time = datetime.now()
-
     # Out of recording timeframe
+    now_time = datetime.now()
     if now_time > end_time or now_time < start_time:
         print('Out of recording timeframe!')
         print(f'Now time: {str(now_time)}')
