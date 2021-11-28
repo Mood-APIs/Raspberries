@@ -29,6 +29,7 @@ def update_init_settings():
     headers = {}
 
     response = requests.request("GET", url, headers=headers, data=payload, files=files)
+    print('----------------------------------------------------------------')
     print(response.text)
 
     global start_time, end_time, record_time
