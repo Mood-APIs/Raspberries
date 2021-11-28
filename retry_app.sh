@@ -1,0 +1,1 @@
+ps aux | grep app.py | grep -v grep && echo "proccess running" || ~/mood-scripts/run.sh &
