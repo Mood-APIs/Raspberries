@@ -2,13 +2,15 @@ import requests
 from datetime import datetime
 import subprocess
 import shlex
-import sched
 import time
 import os
 import sys
+import json
 
-bar_id = 'E2:63:DA:BA:56:81'
+
 path_file = f'/home/{os.getlogin()}/final_song.mp3'
+with open(f'/home/{os.getlogin()}/specs.json') as f:
+    bar_id = json.load(f)['bssid']
 
 # identity: rasp_pi
 access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzNTQ1Mjg3MywianRpIjoiMjQ3NmJlOTktNDQ2Yi00ZTBjLTk2NmQtNjBkOTBjODgzMWE4IiwibmJmIjoxNjM1NDUyODczLCJ0eXBlIjoiYWNjZXNzIiwic3ViIjoicmFzcF9waSIsImV4cCI6MTYzNTQ3NDQ3M30.U5i9eIlqziPgPGKJviLEvgBuloNIXR9iPWsPRIywaao'
@@ -109,6 +111,7 @@ while True:
         print(f'Start time: {str(start_time)}')
         print(f'End time: {str(end_time)}')
         print('----------------------------------------------------------------')
+        sys.stdout.flush()
         time.sleep(1800)
 
     # Recording
@@ -124,6 +127,7 @@ while True:
         print('----------------------------------------------------------------')
 
         # Check if a half-hour passed
-        minutes = datetime.now().minute
+        now_time = datetime.now()
+        minutes = now_time.minute
         if minutes % 30 <= 3:
             update_init_settings()
