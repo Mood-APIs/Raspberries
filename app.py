@@ -11,6 +11,7 @@ import json
 path_file = f'/home/{os.getlogin()}/final_song.mp3'
 with open(f'/home/{os.getlogin()}/specs.json') as f:
     bar_id = json.load(f)['bssid']
+    timeframe = json.load(f)['timeframe']
 
 # identity: rasp_pi
 access_token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTYzNTQ1Mjg3MywianRpIjoiMjQ3NmJlOTktNDQ2Yi00ZTBjLTk2NmQtNjBkOTBjODgzMWE4IiwibmJmIjoxNjM1NDUyODczLCJ0eXBlIjoiYWNjZXNzIiwic3ViIjoicmFzcF9waSIsImV4cCI6MTYzNTQ3NDQ3M30.U5i9eIlqziPgPGKJviLEvgBuloNIXR9iPWsPRIywaao'
@@ -37,7 +38,7 @@ def update_init_settings():
     global start_time, end_time, record_time
 
     settings = response.json()['settings']
-    basic_timeframe = settings['basic_timeframe']
+    basic_timeframe = settings[timeframe]
     start_time = datetime.strptime(basic_timeframe['start'], '%Y-%m-%d %H:%M:%S')
     end_time = datetime.strptime(basic_timeframe['end'], '%Y-%m-%d %H:%M:%S')
     record_time = settings['record_timeOffset']
