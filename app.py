@@ -42,8 +42,8 @@ def update_init_settings():
     basic_timeframe = settings[timeframe]
     start_time = datetime.strptime(basic_timeframe['start'], '%Y-%m-%d %H:%M:%S')
     end_time = datetime.strptime(basic_timeframe['end'], '%Y-%m-%d %H:%M:%S')
-    record_time = settings['record_timeOffset']
-
+    record_time = settings['record_timeOffset'] if timeframe != "test_timeframe" else 10
+    
 def new_song(token):
 
     url = "https://r9rjketed6.execute-api.eu-south-1.amazonaws.com/dev/new_song/" + bar_id
